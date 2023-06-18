@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 const port = 8000;
+const startScheduleMonitoring = require('./scheduleMonitor');
 
 app.get('/api/team/:team_id', async (req, res) => {
     try {
@@ -47,4 +48,7 @@ app.get('/api/people/:person_id/stats/:season', async (req, res) => {
 
 
 
-app.listen(port, () => console.log(`App is running on http://localhost:${port}`));
+app.listen(port, () => {
+    console.log(`App is running on http://localhost:${port}`);
+    startScheduleMonitoring();
+});
