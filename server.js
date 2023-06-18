@@ -23,4 +23,15 @@ app.get('/api/game/:game_id/boxscore', async (req, res) => {
     }
 });
 
+app.get('/api/people/:person_id/stats/:season', async (req, res) => {
+    try {
+        const response = await axios.get(`https://statsapi.web.nhl.com/api/v1/people/${req.params.person_id}/stats?stats=statsSingleSeason&season=${req.params.season}`);
+        res.json(response.data.stats[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while trying to fetch the person\'s stats.' });
+    }
+});
+
+
 app.listen(port, () => console.log(`App is running on http://localhost:${port}`));
