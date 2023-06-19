@@ -65,13 +65,16 @@ app.get('/api/schedule', async (req, res) => {
                             fullName: player.person.fullName,
                             goals: stats.goals,
                             assists: stats.assists,
+                            hits: stats.hits,
+                            points: stats.goals + stats.assists,
+                            penalty_minutes: stats.penaltyMinutes,
                         });
                     }
                 });
             }
         }
-        console.log(playerStats);
-        res.json({ status: 'done' });
+        //console.log(playerStats);
+        res.json(playerStats);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while trying to fetch the schedule.' });
