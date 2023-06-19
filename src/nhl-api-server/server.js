@@ -63,11 +63,17 @@ app.get('/api/schedule', async (req, res) => {
                         playerStats.push({
                             personId: player.person.id,
                             fullName: player.person.fullName,
+                            team_id: player.person.currentTeam ? player.person.currentTeam.id : null,
+                            team_name: player.person.currentTeam ? player.person.currentTeam.name : null,
+                            player_age: player.person.currentAge,
+                            player_number: player.jerseyNumber,
+                            player_position: player.position.code,
                             goals: stats.goals,
                             assists: stats.assists,
                             hits: stats.hits,
                             points: stats.goals + stats.assists,
                             penalty_minutes: stats.penaltyMinutes,
+                            opponent_team: player.person.currentTeam ? (game.teams.home.team.id === player.person.currentTeam.id ? game.teams.away.team.name : game.teams.home.team.name) : null,
                         });
                     }
                 });
