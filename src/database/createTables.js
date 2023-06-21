@@ -1,6 +1,5 @@
 const pgp = require('pg-promise')();
-const dbConfig = require('./dbConfig');
-
+const { dbConfig } = require('./dbConfig');
 const db = pgp(dbConfig);
 
 const createTables = async () => {

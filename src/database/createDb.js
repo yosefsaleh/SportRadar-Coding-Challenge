@@ -1,27 +1,24 @@
 const pgp = require('pg-promise')();
-const dbConfig = require('./dbConfig');
 
-// Connect to the PostgreSQL server
-const db = pgp({
-  ...dbConfig,
-  database: "postgres"  // Connect to the default 'postgres' database to be able to create a new one
-});
+const { dbConfig } = require('./dbConfig');
 
-const createDatabase = async () => {
-  try {
-    // Try to drop the database if it exists 
-    await db.none(`DROP DATABASE IF EXISTS ${dbConfig.database}`);
-
-    // Create a new database
-    await db.none(`CREATE DATABASE ${dbConfig.database}`);
-
-    console.log(`Database '${dbConfig.database}' created successfully`);
-  } catch (err) {
-    console.error(`Error creating database '${dbConfig.database}'`, err);
-  } finally {
-    pgp.end();  // Close the connection pool
-  }
+const dropDbConfig = {
+    ...dbConfig,
+    database: 'postgres', // Connect to a different database before dropping the target one
 };
 
-createDatabase();
+const db = pgp(dropDbConfig);
 
+async function createDb() {
+    try {
+        await db.none(`DROP DATABASE IF EXISTS ${dbConfig.database}`);
+        console.log('Existing database dropped successfully!');
+        
+        await db.none(`CREATE DATABASE ${dbConfig.database}`);
+        console.log('Database created successfully!');
+    } catch (error) {
+        console.error(`Error creating database: ${error}`);
+    }
+}
+
+createDb();

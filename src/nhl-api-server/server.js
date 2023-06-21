@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 const port = 8000;
+const { storeGameData, storeTeamData } = require('../database/dbQueries');
 const startScheduleMonitoring = require('./scheduleMonitor');
 
 app.get('/api/team/:team_id', async (req, res) => {
@@ -55,6 +56,9 @@ app.get('/api/schedule', async (req, res) => {
         for (let date of dates.slice(0, 5)) { // get only the first 5 games
             const games = date.games;
             for (let game of games) {
+                await storeTeamData(game.teams.home.team);
+                await storeTeamData(game.teams.away.team);
+                await storeGameData(game);
                 const boxscoreResponse = await axios.get(`https://statsapi.web.nhl.com/api/v1/game/${game.gamePk}/boxscore`);
                 const players = { ...boxscoreResponse.data.teams.home.players, ...boxscoreResponse.data.teams.away.players };
                 Object.values(players).forEach(player => {
