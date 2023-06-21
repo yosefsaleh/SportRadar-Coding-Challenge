@@ -7,11 +7,13 @@ const startScheduleMonitoring = require('./scheduleMonitor');
 
 app.get('/api/schedule', async (req, res) => {
     const season = req.query.season;  // Extract the 'season' query parameter from the request
+    const numGames = req.query.numGames || 5; // Get number of games from the request, or default to 5
+    numGames = Math.min(numGames, 20); // If numGames is more than 20, default to 20
     let playerStats = [];
     try {
         const response = await axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?season=${season}`);
         const dates = response.data.dates;
-        for (let date of dates.slice(0, 5)) { // get only the first 5 games
+        for (let date of dates.slice(0, numGames)) { // Get only the first numGames games
             const games = date.games;
             for (let game of games) {
                 await storeTeamData(game.teams.home.team);
