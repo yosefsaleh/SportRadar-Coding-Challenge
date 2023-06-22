@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# Instructions for running the application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+make sure node, express, axios, postgres, mocha, and supertest are all installed on your machine
+ignore any React files. Original intention was to develop front end components to make viewing the data easier, but ran out of time
+replace user and password fields in dbConfig.js with your own postgres user and password
+open a new terminal tab, and navigate to the database directory: sport-radar-app/src/database
+run the following command node createDb.js
+once the db is successfully created run this command node createTables.js
+now run this command and replace user with your own user: psql -h localhost -d nhl_stats -U yoyosef
+open an additional terminal tab, and navigate to this directory: sport-radar-app/src/nhl-api-server
+start the server by running node server.js
+now open this url in your browser: http://localhost:8000/api/schedule?season=20172018
+you can replace the season with any season of your choosing 
+navigate back to your first terminal tab, and you should be able to query the database (see the schema for the db below)
+to run unit tests open the following directory: sport-radar-app
+run this command to run the unit tests: mocha ./__tests__/test.js
 
-## Available Scripts
+## Database Schema
+teams
+----------
+| id (PK) |   name   |
+-----------------------
 
-In the project directory, you can run:
+players
+-----------------------------------------
+| id (PK) |   name   | age | number | position | team_id (FK-teams.id) |
+-------------------------------------------------------------------------
 
-### `npm start`
+games
+---------------------------------------------------
+| id (PK) |     date     | home_team_id (FK-teams.id) | away_team_id (FK-teams.id) |
+--------------------------------------------------------------------------
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+player_game_stats
+-----------------------------------------------------------------------------------
+| id (PK) | player_id (FK-players.id) | game_id (FK-games.id) | goals | assists | hits | points | penalty_minutes | opponent_team_id (FK-teams.id) |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
