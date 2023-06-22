@@ -1,19 +1,47 @@
-# Instructions for running the application
+# Instructions for Running the Application
 
-make sure node, express, axios, postgres, mocha, and supertest are all installed on your machine
-ignore any React files. Original intention was to develop front end components to make viewing the data easier, but ran out of time
-replace user and password fields in dbConfig.js with your own postgres user and password
-open a new terminal tab, and navigate to the database directory: sport-radar-app/src/database
-run the following command node createDb.js
-once the db is successfully created run this command node createTables.js
-now run this command and replace user with your own user: psql -h localhost -d nhl_stats -U yoyosef
-open an additional terminal tab, and navigate to this directory: sport-radar-app/src/nhl-api-server
-start the server by running node server.js
-now open this url in your browser: http://localhost:8000/api/schedule?season=20172018
-you can replace the season with any season of your choosing 
-navigate back to your first terminal tab, and you should be able to query the database (see the schema for the db below)
-to run unit tests open the following directory: sport-radar-app
-run this command to run the unit tests: mocha ./__tests__/test.js
+Make sure Node.js, Express, Axios, PostgreSQL, Mocha, and Supertest are all installed on your machine.
+
+Ignore any React files. The original intention was to develop front-end components to make viewing the data easier, but ran out of time.
+
+Replace the `user` and `password` fields in `dbConfig.js` with your own PostgreSQL user and password.
+
+## Setting up the Database
+
+1. Open a new terminal tab and navigate to the database directory: `sport-radar-app/src/database`.
+
+2. Run the following command:
+node createDb.js
+
+
+3. Once the database is successfully created, run this command:
+node createTables.js
+
+
+4. Now, run the following command (replace `user` with your own user):
+psql -h localhost -d nhl_stats -U user
+
+
+## Starting the Server
+
+1. Open an additional terminal tab and navigate to this directory: `sport-radar-app/src/nhl-api-server`.
+
+2. Start the server by running the following command:
+node server.js
+
+
+3. Now open this URL in your browser: [http://localhost:8000/api/schedule?season=20172018](http://localhost:8000/api/schedule?season=20172018)
+
+You can replace the season with any season of your choosing.
+
+4. Navigate back to your first terminal tab, and you should be able to query the database (see the schema for the database below).
+
+## Running Unit Tests
+
+1. Open the following directory: `sport-radar-app` in your terminal.
+
+2. Run the following command to run the unit tests:
+mocha ./tests/test.js
 
 ## Database Schema
 teams
