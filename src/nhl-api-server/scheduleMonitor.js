@@ -32,6 +32,7 @@ const startScheduleMonitoring = () => {
                                         points: stats.goals + stats.assists,
                                         penaltyMinutes: stats.penaltyMinutes
                                     });
+                                    // push updated stats to database would occur here
                                 });
                             }
                         } catch (error) {

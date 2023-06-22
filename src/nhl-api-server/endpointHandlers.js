@@ -13,7 +13,6 @@ app.get('/api/schedule', async (req, res) => {
         const response = await axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?season=${season}`);
         console.log('Response received from third-party API');
 
-        // Let's print the first 1000 characters of the response
         console.log(JSON.stringify(response.data).substr(0, 1000));
 
         res.json({ message: "Check console for third-party API response." });

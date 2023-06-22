@@ -11,7 +11,7 @@ app.get('/api/schedule', async (req, res) => {
     try {
         const response = await axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?season=${season}`);
         const dates = response.data.dates;
-        for (let date of dates.slice(0, 5)) { // Get only the first numGames games
+        for (let date of dates.slice(0, 5)) { // Get only the first 5 days of games to avoid making too many api calls
             const games = date.games;
             for (let game of games) {
                 await storeTeamData(game.teams.home.team);
